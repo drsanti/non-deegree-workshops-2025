@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-admin}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-password}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE:-mydb}
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    restart: unless-stopped
+    networks:
+      - mongo-network
+    command: >
+      bash -c "
+      openssl rand -base64 756 > /etc/mongodb-keyfile &&
+      chmod 400 /etc/mongodb-keyfile &&
+      chown mongodb:mongodb /etc/mongodb-keyfile &&
+      mongod --replSet rs0 --bind_ip_all --keyFile /etc/mongodb-keyfile
+      "
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+
+networks:
+  mongo-network:
+    driver: bridge
+

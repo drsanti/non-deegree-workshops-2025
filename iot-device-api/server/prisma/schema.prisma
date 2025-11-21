@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  type      String   // 'sensor' | 'controller'
+  status    String   // 'online' | 'offline'
+  lastUpdate DateTime @default(now())
+  data      Json     // Embedded document: { temperature, humidity, power }
+
+  @@map("devices")
+}
+
+model DeviceDataHistory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  deviceId    String   @db.ObjectId
+  timestamp   DateTime @default(now())
+  temperature Float
+  humidity    Float
+  power       String // 'on' | 'off'
+
+  @@index([deviceId])
+  @@index([deviceId, timestamp])
+  @@map("device_data_history")
+}
+
