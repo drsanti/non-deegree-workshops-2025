@@ -21,7 +21,7 @@ Before starting, you should have:
 - Completed Workshop 3 (Device List Handling)
 - Understanding of React state updates
 - Knowledge of conditional rendering
-- WebSocket server running with devices sending sensor data
+- WebSocket server running via Docker with devices sending sensor data (see `websocket/ws-server-docker/README.md`)
 
 ## Step-by-Step Instructions
 

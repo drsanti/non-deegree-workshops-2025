@@ -1,0 +1,26 @@
+services:
+  websocket-server:
+    image: drsanti/ternion-realtime-iot-server:latest
+    container_name: ternion-realtime-iot-server
+    ports:
+      - "7890:7890"
+    environment:
+      - PORT=${PORT:-7890}
+      - TEMPERATURE_BASE=${TEMPERATURE_BASE:-20}
+      - TEMPERATURE_RANGE=${TEMPERATURE_RANGE:-10}
+      - HUMIDITY_BASE=${HUMIDITY_BASE:-40}
+      - HUMIDITY_RANGE=${HUMIDITY_RANGE:-30}
+      - SIMULATION_INTERVAL=${SIMULATION_INTERVAL:-3000}
+      - INITIAL_DEVICE_STATUS=${INITIAL_DEVICE_STATUS:-online}
+      - INITIAL_POWER_STATUS=${INITIAL_POWER_STATUS:-on}
+      - DEVICES=${DEVICES}
+    restart: unless-stopped
+    networks:
+      - iot-network
+    # Optional: mount .env file if preferred over environment variables
+    # env_file:
+    #   - .env
+
+networks:
+  iot-network:
+    driver: bridge

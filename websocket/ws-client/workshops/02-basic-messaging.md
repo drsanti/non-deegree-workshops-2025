@@ -21,7 +21,7 @@ Before starting, you should have:
 - Completed Workshop 1 (Basic WebSocket Connection)
 - Understanding of JSON parsing
 - Basic React state management knowledge
-- WebSocket server running
+- WebSocket server running via Docker (see `websocket/ws-server-docker/README.md`)
 
 ## Step-by-Step Instructions
 

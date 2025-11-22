@@ -174,7 +174,15 @@ A RESTful API server with **10 progressive workshops** teaching backend developm
 
 #### Option 1: WebSocket Real-Time Demo
 
-1. **Start the WebSocket Server using Docker:**
+1. **Start the WebSocket Server using Docker Compose:**
+   ```bash
+   cd websocket/ws-server-docker
+   # Create .env file (see websocket/ws-server-docker/README.md)
+   docker-compose up -d
+   ```
+   Server runs on `ws://localhost:7890`
+   
+   **Or use Docker directly:**
    ```bash
    docker run -d \
      --name ternion-realtime-iot-server \
@@ -182,13 +190,8 @@ A RESTful API server with **10 progressive workshops** teaching backend developm
      -e DEVICES='[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]' \
      drsanti/ternion-realtime-iot-server:latest
    ```
-   Server runs on `ws://localhost:7890`
    
-   **Or use Docker Compose:**
-   ```bash
-   # Create a docker-compose.yml file (see Docker Deployment section)
-   docker-compose up -d
-   ```
+   For detailed Docker Compose setup instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
 
 2. **Start the WebSocket Client:**
    ```bash
@@ -312,7 +315,10 @@ A RESTful API server with **10 progressive workshops** teaching backend developm
 
 Each project includes detailed documentation:
 
-- **WebSocket Server**: Available via Docker Hub at https://hub.docker.com/r/drsanti/ternion-realtime-iot-server (source code in separate private repository)
+- **WebSocket Server**: 
+  - Docker image: https://hub.docker.com/r/drsanti/ternion-realtime-iot-server
+  - Docker Compose setup: `websocket/ws-server-docker/README.md`
+  - Source code in separate private repository
 - **WebSocket Client**: `websocket/ws-client/README.md`
 - **REST API Server**: `iot-device-api/server/README.md`
 
@@ -320,8 +326,24 @@ Each project includes detailed documentation:
 
 ### WebSocket Server (Docker)
 
-The WebSocket Server runs as a Docker container. Use these commands:
+The WebSocket Server runs as a Docker container. Use Docker Compose (recommended):
 
+```bash
+# Navigate to docker directory
+cd websocket/ws-server-docker
+
+# Create .env file with DEVICES configuration (see README.md)
+# Then start the server
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the server
+docker-compose down
+```
+
+**Or use Docker directly:**
 ```bash
 # Pull the latest image
 docker pull drsanti/ternion-realtime-iot-server:latest
@@ -342,6 +364,8 @@ docker stop ternion-realtime-iot-server
 # Remove the container
 docker rm ternion-realtime-iot-server
 ```
+
+For detailed setup instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
 
 ### WebSocket Client
 ```bash
@@ -383,34 +407,32 @@ docker run -d \
   drsanti/ternion-realtime-iot-server:latest
 ```
 
-**Option 2: Using Docker Compose**
+**Option 2: Using Docker Compose (Recommended)**
 
-Create a `docker-compose.yml` file:
+Use the Docker Compose setup included in this repository:
 
-```yaml
-version: '3.8'
+1. **Navigate to the docker directory:**
+   ```bash
+   cd websocket/ws-server-docker
+   ```
 
-services:
-  websocket-server:
-    image: drsanti/ternion-realtime-iot-server:latest
-    container_name: ternion-realtime-iot-server
-    ports:
-      - "7890:7890"
-    environment:
-      - PORT=7890
-      - DEVICES='[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]'
-      - TEMPERATURE_BASE=20
-      - TEMPERATURE_RANGE=10
-      - HUMIDITY_BASE=40
-      - HUMIDITY_RANGE=30
-      - SIMULATION_INTERVAL=3000
-    restart: unless-stopped
-```
+2. **Create a `.env` file** (see `websocket/ws-server-docker/README.md` for details):
+   ```env
+   PORT=7890
+   DEVICES=[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]
+   TEMPERATURE_BASE=20
+   TEMPERATURE_RANGE=10
+   HUMIDITY_BASE=40
+   HUMIDITY_RANGE=30
+   SIMULATION_INTERVAL=3000
+   ```
 
-Then run:
-```bash
-docker-compose up -d
-```
+3. **Start the server:**
+   ```bash
+   docker-compose up -d
+   ```
+
+For detailed instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
 
 **Docker Hub:**
 - **Image**: `drsanti/ternion-realtime-iot-server:latest`

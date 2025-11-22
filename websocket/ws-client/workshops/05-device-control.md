@@ -21,7 +21,7 @@ Before starting, you should have:
 - Completed Workshop 4 (Real-time Sensor Data)
 - Understanding of form handling in React
 - Knowledge of input validation
-- WebSocket server running with devices that accept commands
+- WebSocket server running via Docker with devices that accept commands (see `websocket/ws-server-docker/README.md`)
 
 ## Step-by-Step Instructions
 

@@ -43,11 +43,20 @@ IoT Device → WebSocket Server → REST API → MongoDB
 
 ### Step 2: WebSocket Server Overview
 
-The WebSocket server (in `websocket/ws-server/`):
+The WebSocket server (available as Docker image, configured in `websocket/ws-server-docker/`):
 - Maintains real-time connections
 - Simulates IoT device data
 - Broadcasts updates to connected clients
 - Can call REST API to persist data
+
+**To start the WebSocket server:**
+```bash
+cd websocket/ws-server-docker
+# Create .env file with DEVICES configuration (see README.md)
+docker-compose up -d
+```
+
+See [`websocket/ws-server-docker/README.md`](../../../websocket/ws-server-docker/README.md) for detailed setup instructions.
 
 **Key responsibilities:**
 - WebSocket connections

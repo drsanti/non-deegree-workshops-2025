@@ -32,7 +32,14 @@ npm run dev
 
 The application will open in your browser at `http://localhost:5173`.
 
-Make sure the Real-time IoT Server is running on `ws://localhost:7890` before starting the client. See the server README for setup instructions.
+Make sure the Real-time IoT Server is running on `ws://localhost:7890` before starting the client. 
+
+**To start the WebSocket Server:**
+1. Navigate to `websocket/ws-server-docker`
+2. Create a `.env` file with your device configuration
+3. Run `docker-compose up -d`
+
+See [`websocket/ws-server-docker/README.md`](../ws-server-docker/README.md) for detailed setup instructions.
 
 ### Using the Workshops
 

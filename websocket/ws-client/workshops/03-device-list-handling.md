@@ -21,7 +21,7 @@ Before starting, you should have:
 - Completed Workshop 2 (Basic Messaging)
 - Understanding of React state management
 - Knowledge of JavaScript Map data structure
-- WebSocket server running with devices configured
+- WebSocket server running via Docker with devices configured (see `websocket/ws-server-docker/README.md`)
 
 ## Step-by-Step Instructions
 

@@ -21,7 +21,7 @@ Before starting, you should have:
 - Basic understanding of React and TypeScript
 - Node.js v18 or higher installed
 - A code editor (VS Code recommended)
-- The WebSocket server running (see ws-server README)
+- The WebSocket server running via Docker (see `websocket/ws-server-docker/README.md`)
 
 ## Step-by-Step Instructions
 
@@ -184,8 +184,9 @@ useEffect(() => {
 
 1. **Make sure the WebSocket server is running:**
    ```bash
-   cd ../ws-server
-   npm start
+   cd ../ws-server-docker
+   # Create .env file with DEVICES configuration (see README.md)
+   docker-compose up -d
    ```
 
 2. **Start the development server:**
