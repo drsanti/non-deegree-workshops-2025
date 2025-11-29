@@ -1,6 +1,17 @@
-# IoT Sensor Data Visualization Dashboard
+# SVG & D3.js Visualization Project
 
-A modern Next.js application for visualizing IoT sensor data using React SVG, D3.js, and Radix UI. This project demonstrates real-time sensor data visualization with interactive charts and dashboards.
+A modern Next.js application demonstrating data visualization techniques using React SVG, D3.js, and Radix UI. This project includes both IoT sensor data visualization demos and a comprehensive signal visualization workshop.
+
+## Table of Contents
+
+- [Features](#features)
+- [Workshop](#workshop)
+- [Demos](#demos)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Component Usage](#component-usage)
+- [Development](#development)
 
 ## Features
 
@@ -9,9 +20,37 @@ A modern Next.js application for visualizing IoT sensor data using React SVG, D3
   - **Line Charts**: Time-series data visualization using D3.js
   - **Bar Charts**: Comparative sensor data analysis
   - **Gauge Charts**: Real-time gauge meters for current sensor values
+- **Signal Visualization Workshop**: Progressive examples teaching signal generation and D3.js
 - **Responsive Design**: Mobile-friendly grid layout
 - **Modern UI Components**: Built with Radix UI primitives and Tailwind CSS
 - **TypeScript**: Full type safety throughout the application
+
+## Workshop
+
+This project includes a comprehensive **Signal Visualization Workshop** with 5 progressive examples teaching signal generation, noise processing, and D3.js visualization.
+
+### Workshop Examples
+
+1. **[Example 01: Basic Sine Wave](./app/workshop/apps/ex01)** - Introduction to signal generation and D3.js visualization
+2. **[Example 02: Signal with Noise](./app/workshop/apps/ex02)** - Adding Gaussian noise and dual visualization
+3. **[Example 03: Multiple Signal Types](./app/workshop/apps/ex03)** - Supporting sine, square, and sawtooth waves
+4. **[Example 04: Signal + Noise with Controls](./app/workshop/apps/ex04)** - Interactive parameter controls and React hooks
+5. **[Example 05: Full Signal Visualizer](./app/workshop/apps/ex05)** - Complete application with modular architecture
+
+### Workshop Documentation
+
+Complete tutorial documentation is available in [`app/workshop/docs/`](./app/workshop/docs/README.md), including:
+- Step-by-step guides for each example
+- Code walkthroughs and explanations
+- Exercises with solutions
+- Key concepts and best practices
+
+**Start the workshop:** Navigate to `/workshop/apps/ex01` after starting the development server.
+
+## Demos
+
+- **[IoT Dashboard](./app/demo/iot-dash)** - Real-time IoT sensor monitoring dashboard
+- **[Signal Visualizer](./app/demo/signals)** - Interactive signal generation and visualization tool
 
 ## Tech Stack
 
@@ -45,32 +84,35 @@ npm run dev
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+### Quick Links
+
+- **Main Dashboard**: [http://localhost:3000](http://localhost:3000)
+- **IoT Dashboard Demo**: [http://localhost:3000/demo/iot-dash](http://localhost:3000/demo/iot-dash)
+- **Signal Visualizer Demo**: [http://localhost:3000/demo/signals](http://localhost:3000/demo/signals)
+- **Workshop Example 01**: [http://localhost:3000/workshop/apps/ex01](http://localhost:3000/workshop/apps/ex01)
+
 ## Project Structure
 
 ```
 svg-d3-visualizarion/
 ├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx             # Main dashboard page
-│   └── globals.css           # Global styles with Tailwind
+│   ├── demo/                    # Demo applications
+│   │   ├── iot-dash/           # IoT sensor dashboard
+│   │   └── signals/            # Signal visualizer demo
+│   ├── workshop/               # Workshop examples and docs
+│   │   ├── apps/               # Progressive examples (ex01-ex05)
+│   │   └── docs/               # Tutorial documentation
+│   ├── layout.tsx               # Root layout
+│   ├── page.tsx                 # Main dashboard page
+│   └── globals.css              # Global styles with Tailwind
 ├── components/
-│   ├── ui/                  # Radix UI components
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   └── tabs.tsx
-│   ├── charts/              # D3 visualization components
-│   │   ├── LineChart.tsx    # Time series line chart
-│   │   ├── BarChart.tsx     # Sensor comparison bar chart
-│   │   └── GaugeChart.tsx   # Real-time gauge visualization
-│   └── sensors/             # Sensor-specific components
-│       ├── SensorCard.tsx   # Individual sensor display card
-│       └── SensorGrid.tsx   # Grid layout for multiple sensors
-├── lib/
-│   ├── d3-utils.ts          # D3 helper functions
-│   ├── sensor-data.ts       # Mock IoT sensor data generator
-│   └── utils.ts             # Utility functions (cn helper)
-├── types/
-│   └── sensor.ts            # TypeScript types for sensor data
+│   ├── ui/                      # Radix UI components
+│   ├── charts/                  # D3 visualization components
+│   ├── sensors/                 # Sensor-specific components
+│   └── signals/                # Signal visualization components
+├── hooks/                       # Custom React hooks
+├── lib/                         # Utility functions and helpers
+├── types/                       # TypeScript type definitions
 └── package.json
 ```
 
@@ -146,42 +188,6 @@ The project supports the following sensor types:
 - `motion` - Motion detection (binary)
 - `air_quality` - Air quality index (AQI)
 
-## Mock Data
-
-The project includes a mock data generator (`lib/sensor-data.ts`) that simulates IoT sensor readings. You can:
-
-- Generate time-series data for sensors
-- Create dashboard sensor configurations
-- Simulate real-time updates
-
-Example:
-
-```typescript
-import { generateDashboardSensors, updateSensorReading } from '@/lib/sensor-data';
-
-// Generate 6 sensors
-const sensors = generateDashboardSensors(6);
-
-// Update sensor with new reading
-const updatedSensor = updateSensorReading(sensor);
-```
-
-## Customization
-
-### Adding New Sensor Types
-
-1. Update `types/sensor.ts` to add new sensor types
-2. Add configuration in `lib/sensor-data.ts` (`SENSOR_CONFIGS`)
-3. Add color mapping in `lib/d3-utils.ts` (`createSensorColorScale`)
-
-### Styling
-
-The project uses Tailwind CSS with custom theme tokens defined in `app/globals.css`. You can customize:
-
-- Colors: Update CSS variables in `globals.css`
-- Components: Modify component files in `components/ui/`
-- Charts: Adjust D3.js styling in chart components
-
 ## Development
 
 ### Build for Production
@@ -217,29 +223,6 @@ npm run lint
 - `clsx`: ^2.1.1
 - `tailwind-merge`: ^3.4.0
 - `class-variance-authority`: Latest
-
-## Example Sensor Data Format
-
-```typescript
-interface DashboardSensor {
-  metadata: {
-    id: string;
-    name: string;
-    type: SensorType;
-    unit: string;
-    location: string;
-    minValue: number;
-    maxValue: number;
-    lastUpdated: Date;
-  };
-  currentValue: number;
-  timeSeries: Array<{
-    timestamp: Date;
-    value: number;
-  }>;
-  status: 'active' | 'inactive' | 'error';
-}
-```
 
 ## License
 
