@@ -404,7 +404,7 @@ def main_page():
     ui.page_title('Signal Visualization')
     
     with ui.header(elevated=True).style('background-color: #1976d2').classes('items-center justify-between'):
-        ui.label('Signal Visualization Application').style('color: white; font-size: 1.5em; font-weight: bold')
+        ui.label('Signal Generation & Visualization Application').style('color: white; font-size: 1.5em; font-weight: bold')
         ui.label('Interactive Signal Processing & Analysis').style('color: white; font-size: 1em')
     
     with ui.row().classes('w-full gap-4 p-4'):
@@ -419,20 +419,23 @@ def main_page():
                     value=DEFAULT_PARAMS['signal_type']
                 ).classes('w-full').on('update:model-value', lambda e: update_plots())
                 
-                ui.label('Frequency (Hz):')
+                freq_label = ui.label('Frequency (Hz):')
                 frequency_slider = ui.slider(
                     min=0.1, max=10.0, step=0.1, value=DEFAULT_PARAMS['frequency']
-                ).classes('w-full').on('update:model-value', lambda e: update_plots())
+                ).classes('w-full').on('change', lambda e: update_plots())
+                freq_label.bind_text_from(frequency_slider, 'value', backward=lambda v: f'Frequency ({v:.1f} Hz):')
                 
-                ui.label('Amplitude:')
+                amp_label = ui.label('Amplitude:')
                 amplitude_slider = ui.slider(
                     min=0.1, max=2.0, step=0.1, value=DEFAULT_PARAMS['amplitude']
-                ).classes('w-full').on('update:model-value', lambda e: update_plots())
+                ).classes('w-full').on('change', lambda e: update_plots())
+                amp_label.bind_text_from(amplitude_slider, 'value', backward=lambda v: f'Amplitude ({v:.1f}):')
                 
-                ui.label('Duration (seconds):')
+                dur_label = ui.label('Duration (seconds):')
                 duration_slider = ui.slider(
                     min=0.5, max=5.0, step=0.1, value=DEFAULT_PARAMS['duration']
-                ).classes('w-full').on('update:model-value', lambda e: update_plots())
+                ).classes('w-full').on('change', lambda e: update_plots())
+                dur_label.bind_text_from(duration_slider, 'value', backward=lambda v: f'Duration ({v:.1f} s):')
                 
                 ui.label('Sample Rate (Hz):')
                 sample_rate_input = ui.number(
@@ -446,10 +449,11 @@ def main_page():
                     'Enable Noise', value=DEFAULT_PARAMS['noise_enabled']
                 ).classes('w-full').on('update:model-value', lambda e: update_plots())
                 
-                ui.label('Noise Level:')
+                noise_label = ui.label('Noise Level:')
                 noise_slider = ui.slider(
                     min=0.0, max=0.5, step=0.01, value=DEFAULT_PARAMS['noise_level']
-                ).classes('w-full').on('update:model-value', lambda e: update_plots())
+                ).classes('w-full').on('change', lambda e: update_plots())
+                noise_label.bind_text_from(noise_slider, 'value', backward=lambda v: f'Noise Level ({v:.2f}):')
             
             with ui.card().classes('w-full'):
                 ui.label('Filter Controls').style('font-size: 1.2em; font-weight: bold; margin-bottom: 10px')
@@ -458,10 +462,11 @@ def main_page():
                     'Enable Filter', value=DEFAULT_PARAMS['filter_enabled']
                 ).classes('w-full').on('update:model-value', lambda e: update_plots())
                 
-                ui.label('Filter Window Size:')
+                filter_label = ui.label('Filter Window Size:')
                 filter_window_slider = ui.slider(
                     min=5, max=50, step=1, value=DEFAULT_PARAMS['filter_window']
-                ).classes('w-full').on('update:model-value', lambda e: update_plots())
+                ).classes('w-full').on('change', lambda e: update_plots())
+                filter_label.bind_text_from(filter_window_slider, 'value', backward=lambda v: f'Filter Window Size ({v:.0f}):')
             
             with ui.card().classes('w-full'):
                 ui.label('Actions').style('font-size: 1.2em; font-weight: bold; margin-bottom: 10px')
