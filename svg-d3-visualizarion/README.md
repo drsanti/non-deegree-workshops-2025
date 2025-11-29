@@ -6,6 +6,7 @@ A modern Next.js application demonstrating data visualization techniques using R
 
 - [Features](#features)
 - [Workshop](#workshop)
+- [Practice](#practice)
 - [Demos](#demos)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
@@ -47,6 +48,42 @@ Complete tutorial documentation is available in [`app/workshop/docs/`](./app/wor
 
 **Start the workshop:** Navigate to `/workshop/apps/ex01` after starting the development server.
 
+## Practice
+
+The **Practice** section provides comprehensive examples demonstrating all signal generation and noise functions available in the project.
+
+### Practice Examples
+
+The practice page includes 13 interactive examples covering:
+
+**Signal Types (Practice 1-5):**
+- Square Wave
+- Sine Wave
+- Sawtooth Wave
+- Triangle Wave
+- Pulse Wave
+
+**Noise Types (Practice 6-9):**
+- Gaussian Noise (White Noise)
+- Uniform Noise
+- Pink Noise (1/f Noise)
+- Brown Noise (1/f² Noise)
+
+**Signal + Noise Combinations (Practice 10-13):**
+- Sine Wave + Gaussian Noise
+- Square Wave + Uniform Noise
+- Sine Wave + Pink Noise
+- Sawtooth Wave + Brown Noise
+
+### Practice Components
+
+The practice section includes:
+- **Signal Generator Functions**: All signal generation utilities (`lib/SignalGenerator.ts`)
+- **Signal Plot Component**: Reusable visualization component (`components/SignalPlot.tsx`)
+- **Interactive Examples**: Live demonstrations of each function
+
+**Access the practice page:** Navigate to `/practice` after starting the development server.
+
 ## Demos
 
 - **[IoT Dashboard](./app/demo/iot-dash)** - Real-time IoT sensor monitoring dashboard
@@ -87,6 +124,7 @@ npm run dev
 ### Quick Links
 
 - **Main Dashboard**: [http://localhost:3000](http://localhost:3000)
+- **Practice Examples**: [http://localhost:3000/practice](http://localhost:3000/practice)
 - **IoT Dashboard Demo**: [http://localhost:3000/demo/iot-dash](http://localhost:3000/demo/iot-dash)
 - **Signal Visualizer Demo**: [http://localhost:3000/demo/signals](http://localhost:3000/demo/signals)
 - **Workshop Example 01**: [http://localhost:3000/workshop/apps/ex01](http://localhost:3000/workshop/apps/ex01)
@@ -99,6 +137,9 @@ svg-d3-visualizarion/
 │   ├── demo/                    # Demo applications
 │   │   ├── iot-dash/           # IoT sensor dashboard
 │   │   └── signals/            # Signal visualizer demo
+│   ├── practice/               # Practice examples
+│   │   ├── components/         # SignalPlot component
+│   │   └── lib/                # SignalGenerator utilities
 │   ├── workshop/               # Workshop examples and docs
 │   │   ├── apps/               # Progressive examples (ex01-ex05)
 │   │   └── docs/               # Tutorial documentation
