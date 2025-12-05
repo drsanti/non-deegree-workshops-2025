@@ -1,0 +1,44 @@
+{
+  "name": "nd2-node-data-processing",
+  "version": "1.0.0",
+  "description": "Node.js TypeScript tutorial for IoT and industrial sensor data processing with digital filters, FFT, and Vega visualization",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "chapter01": "tsx codes/chapter01.ts",
+    "chapter02": "tsx codes/chapter02.ts",
+    "chapter03": "tsx codes/chapter03.ts",
+    "chapter04": "tsx codes/chapter04.ts",
+    "chapter05": "tsx codes/chapter05.ts",
+    "chapter06": "tsx codes/chapter06.ts",
+    "chapter07": "tsx codes/chapter07.ts",
+    "chapter08": "tsx codes/chapter08.ts",
+    "chapter09": "tsx codes/chapter09.ts",
+    "chapter10": "tsx codes/chapter10.ts"
+  },
+  "keywords": [
+    "iot",
+    "sensors",
+    "data-processing",
+    "typescript",
+    "signal-processing",
+    "fft",
+    "digital-filters",
+    "vega"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "canvas": "^3.2.0",
+    "fft.js": "^4.0.4",
+    "vega": "^6.2.0",
+    "vega-lite": "^6.4.1"
+  }
+}
