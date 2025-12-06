@@ -1,0 +1,19 @@
+{
+    "venvPath": ".",
+    "venv": "venv",
+    "pythonVersion": "3.11",
+    "pythonPlatform": "Windows",
+    "reportMissingImports": false,
+    "reportMissingModuleSource": false,
+    "reportUnusedImport": false,
+    "typeCheckingMode": "off",
+    "executionEnvironments": [
+        {
+            "root": ".",
+            "pythonVersion": "3.11",
+            "pythonPlatform": "Windows",
+            "extraPaths": ["venv/Lib/site-packages"]
+        }
+    ]
+}
+

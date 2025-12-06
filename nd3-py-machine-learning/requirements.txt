@@ -1,0 +1,22 @@
+# Python Machine Learning Tutorial - Dependencies
+# REQUIRES: Python 3.11.9
+
+# Core Data Science Libraries
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Machine Learning (scikit-learn for chapters 4-7)
+scikit-learn>=1.0.0
+joblib>=1.0.0
+
+# Deep Learning (TensorFlow for chapters 8-10)
+tensorflow>=2.8.0
+
+# Scientific Computing
+scipy>=1.7.0
+
+# Optional: Jupyter for interactive development
+# jupyter>=1.0.0
+# ipykernel>=6.0.0

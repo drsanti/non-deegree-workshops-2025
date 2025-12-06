@@ -1,0 +1,10 @@
+[tool.pyright]
+venvPath = "."
+venv = "venv"
+reportMissingImports = false
+reportMissingModuleSource = false
+typeCheckingMode = "off"
+
+[tool.pylint]
+disable = ["import-error", "no-member"]
+
