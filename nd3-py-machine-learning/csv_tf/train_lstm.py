@@ -20,6 +20,7 @@ np.random.seed(42)
 tf.random.set_seed(42)
 
 # Create output directories
+# Create output directories
 os.makedirs("output", exist_ok=True)
 os.makedirs("models", exist_ok=True)
 
@@ -294,6 +295,7 @@ axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.savefig("output/lstm_training_history.png", dpi=150, bbox_inches='tight')
+plt.show()
 print("Training history saved to output/lstm_training_history.png")
 
 # Confusion matrix heatmap
@@ -305,6 +307,7 @@ plt.ylabel('True Label', fontsize=12)
 plt.xlabel('Predicted Label', fontsize=12)
 plt.tight_layout()
 plt.savefig("output/lstm_training_confusion_matrix.png", dpi=150, bbox_inches='tight')
+plt.show()
 print("Confusion matrix saved to output/lstm_training_confusion_matrix.png")
 
 print("\n" + "="*60)

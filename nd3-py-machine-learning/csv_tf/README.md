@@ -2,6 +2,18 @@
 
 Generate synthetic motor vibration datasets with 3-axis accelerometer data for machine learning model training. This tool provides a complete workflow from data generation to model training and evaluation.
 
+## 📚 Documentation
+
+For detailed documentation on each script, see the [`docs/`](docs/) directory:
+
+- **[Documentation Index](docs/README.md)** - Main documentation hub
+- **[Workflow Guide](docs/workflow.md)** - ⭐ **Start here!** Step-by-step execution order
+- **[Script Documentation](docs/)** - Detailed guides for each script
+  - [Train LSTM](docs/train_lstm.md) | [Train Features](docs/train_features.md)
+  - [Test LSTM](docs/test_lstm.md) | [Test Features](docs/test_features.md)
+  - [Validate](docs/validate.md) | [Verify Models](docs/verify_models.md)
+- **[Visualizations Guide](docs/visualizations.md)** - Complete guide to all plots and visualizations
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -24,6 +36,7 @@ Generate synthetic motor vibration datasets with 3-axis accelerometer data for m
 - [Troubleshooting](#troubleshooting)
 - [File Formats](#file-formats)
 - [Advanced Usage](#advanced-usage)
+- [Documentation](#-documentation)
 
 ## Overview
 
@@ -47,21 +60,100 @@ The generated dataset can be used to train and evaluate two types of machine lea
   - tensorflow>=2.8.0
   - scipy
 
-## Quick Start
+## Running Scripts
+
+**⚠️ Important**: All scripts must be run using the virtual environment's Python interpreter. The system Python does not have the required packages installed.
+
+### Method 1: Direct Path (Recommended)
+
+From the `csv_tf/` directory, use the full path to the virtual environment's Python:
 
 ```bash
-# 1. Generate dataset
+../venv/Scripts/python.exe script_name.py
+```
+
+**Examples:**
+```bash
+../venv/Scripts/python.exe generate.py
+../venv/Scripts/python.exe train_lstm.py
+../venv/Scripts/python.exe test_lstm.py
+```
+
+### Method 2: Activate Virtual Environment
+
+Activate the virtual environment first, then use `python` normally:
+
+```bash
+# From project root (nd3-py-machine-learning/)
+cd ../../
+source venv/Scripts/activate  # Windows Git Bash
+# or: venv\Scripts\activate  # Windows CMD
+
+# Now you can use 'python' normally
+cd csv_tf
 python generate.py
-
-# 2. Validate dataset
-python validate.py validate
-
-# 3. Train LSTM model
 python train_lstm.py
-
-# 4. Test LSTM model
 python test_lstm.py
 ```
+
+### Method 3: Helper Scripts
+
+Use the provided helper scripts (they automatically use the venv Python):
+
+```bash
+# Git Bash / Linux
+./run_test_lstm.sh
+./run_test_features.sh
+
+# Windows CMD
+run_test_lstm.bat
+run_test_features.bat
+```
+
+### Troubleshooting: ModuleNotFoundError
+
+If you see errors like `ModuleNotFoundError: No module named 'numpy'`:
+- You're using the system Python instead of the venv Python
+- Use `../venv/Scripts/python.exe` instead of `python`
+- Or activate the virtual environment first (Method 2)
+
+## Quick Start
+
+**Important**: Always use the virtual environment's Python interpreter. The system Python may not have the required packages installed.
+
+### Option 1: Use Virtual Environment Python Directly (Recommended)
+
+```bash
+# From csv_tf directory, use the venv Python directly
+../venv/Scripts/python.exe generate.py
+../venv/Scripts/python.exe validate.py validate
+../venv/Scripts/python.exe train_lstm.py
+../venv/Scripts/python.exe test_lstm.py
+```
+
+### Option 2: Activate Virtual Environment First
+
+```bash
+# Activate virtual environment (from project root)
+cd ../../
+source venv/Scripts/activate  # Windows Git Bash
+# or: venv\Scripts\activate  # Windows CMD
+
+# Then run scripts normally
+cd csv_tf
+python generate.py
+python validate.py validate
+python train_lstm.py
+python test_lstm.py
+```
+
+### Helper Scripts
+
+For convenience, helper scripts are provided:
+- `run_test_lstm.sh` / `run_test_lstm.bat` - Run LSTM testing
+- `run_test_features.sh` / `run_test_features.bat` - Run feature-based testing
+
+**Note**: If you get `ModuleNotFoundError: No module named 'numpy'` or similar errors, you're using the system Python instead of the virtual environment's Python. Use `../venv/Scripts/python.exe` instead of `python`.
 
 ## Dataset Structure
 
@@ -119,13 +211,22 @@ csv_tf/
 
 ### Generate Dataset
 
+**Using Virtual Environment Python (Recommended):**
+
 ```bash
-# Activate virtual environment first
+# From csv_tf directory
+../venv/Scripts/python.exe generate.py
+```
+
+**Or activate virtual environment first:**
+
+```bash
+# From project root
 cd ../../
 source venv/Scripts/activate  # Windows Git Bash
 # or: venv\Scripts\activate  # Windows CMD
 
-# Generate dataset
+# Then run script
 cd csv_tf
 python generate.py
 ```
@@ -139,14 +240,18 @@ This will create:
 
 ```bash
 # Validate both train and test datasets
-python validate.py validate
+../venv/Scripts/python.exe validate.py validate
 
 # Visualize a specific condition
-python validate.py visualize normal 0
+../venv/Scripts/python.exe validate.py visualize normal 0
 
 # Compare all conditions
-python validate.py compare
+../venv/Scripts/python.exe validate.py compare
 ```
+
+**📖 Detailed Guide**: See [`docs/validate.md`](docs/validate.md) for all validation commands and options.
+
+**Note**: If virtual environment is activated, you can use `python` instead of `../venv/Scripts/python.exe`.
 
 ### Train Models
 
@@ -157,8 +262,10 @@ Two training approaches are available:
 Trains an LSTM neural network using full time-series sequences:
 
 ```bash
-python train_lstm.py
+../venv/Scripts/python.exe train_lstm.py
 ```
+
+**📖 Detailed Guide**: See [`docs/train_lstm.md`](docs/train_lstm.md) for comprehensive documentation.
 
 This will:
 - Load all CSV files from `train/` directory
@@ -195,8 +302,10 @@ This will:
 Trains a dense neural network using extracted statistical features:
 
 ```bash
-python train_features.py
+../venv/Scripts/python.exe train_features.py
 ```
+
+**📖 Detailed Guide**: See [`docs/train_features.md`](docs/train_features.md) for comprehensive documentation.
 
 This will:
 - Load all CSV files from `train/` directory
@@ -240,10 +349,25 @@ Evaluate trained models on the test dataset:
 
 ```bash
 # Test LSTM model
-python test_lstm.py
+../venv/Scripts/python.exe test_lstm.py
 
 # Test feature-based model
-python test_features.py
+../venv/Scripts/python.exe test_features.py
+```
+
+**📖 Detailed Guides**: 
+- [`docs/test_lstm.md`](docs/test_lstm.md) - LSTM testing documentation
+- [`docs/test_features.md`](docs/test_features.md) - Feature-based testing documentation
+
+**Or use helper scripts:**
+```bash
+# Git Bash / Linux
+./run_test_lstm.sh
+./run_test_features.sh
+
+# Windows CMD
+run_test_lstm.bat
+run_test_features.bat
 ```
 
 Both test scripts will:
@@ -251,7 +375,9 @@ Both test scripts will:
 - Load test data from `test/` directory
 - Evaluate model performance
 - Generate confusion matrices and probability distributions
-- Save results to `output/`
+- Save results to `output/` (both saved as files and displayed in windows)
+
+**📊 Visualization Guide**: See [`docs/visualizations.md`](docs/visualizations.md) for detailed explanation of all plots.
 
 ## Configuration
 
@@ -373,9 +499,15 @@ Training and testing generate visualization files in `output/`:
 - `features_test_confusion_matrix.png` - Feature-based model test confusion matrix
 - `features_test_probability_distribution.png` - Feature-based model probability distributions
 
-**Note**: All visualizations are saved as PNG files with 150 DPI resolution for high quality.
+**Note**: All visualizations are saved as PNG files with 150 DPI resolution for high quality. Plots are both saved to files and displayed in interactive windows.
+
+**For detailed visualization guide**: See [`docs/visualizations.md`](docs/visualizations.md)
 
 ## Complete Workflow
+
+**📖 For detailed step-by-step instructions**: See [`docs/workflow.md`](docs/workflow.md)
+
+### Quick Workflow
 
 1. **Generate Dataset** (`generate.py`)
    - Creates 160 CSV files (128 train + 32 test)
@@ -393,10 +525,39 @@ Training and testing generate visualization files in `output/`:
    - Trains neural network
    - Saves model and scaler
 
-4. **Test Model** (`test_lstm.py` or `test_features.py`)
+4. **Verify Models** (`verify_models.py`) - Optional but recommended
+   - Verifies model files are valid
+   - Tests model loading and predictions
+
+5. **Test Model** (`test_lstm.py` or `test_features.py`)
    - Loads trained model
    - Evaluates on test set
    - Generates performance metrics and visualizations
+
+### Execution Order
+
+```bash
+# 1. Generate dataset
+../venv/Scripts/python.exe generate.py
+
+# 2. Validate dataset
+../venv/Scripts/python.exe validate.py validate
+
+# 3. Train model (choose one or both)
+../venv/Scripts/python.exe train_lstm.py
+# OR
+../venv/Scripts/python.exe train_features.py
+
+# 4. Verify models (optional)
+../venv/Scripts/python.exe verify_models.py
+
+# 5. Test model (match with training)
+../venv/Scripts/python.exe test_lstm.py
+# OR
+../venv/Scripts/python.exe test_features.py
+```
+
+**See [`docs/workflow.md`](docs/workflow.md) for complete details, time estimates, and troubleshooting.**
 
 ## Dataset Statistics
 
@@ -411,6 +572,34 @@ Training and testing generate visualization files in `output/`:
 - **Total dataset size**: ~8-10 MB
 
 ## Troubleshooting
+
+### ModuleNotFoundError: No module named 'numpy' (or other packages)
+
+**Problem**: You're using the system Python instead of the virtual environment's Python.
+
+**Solution**: Always use the virtual environment's Python interpreter:
+```bash
+# Use this instead of 'python'
+../venv/Scripts/python.exe script_name.py
+```
+
+**Or activate the virtual environment first:**
+```bash
+# From project root
+cd ../../
+source venv/Scripts/activate  # Git Bash
+# or: venv\Scripts\activate  # CMD
+
+# Then use 'python' normally
+cd csv_tf
+python script_name.py
+```
+
+**Verify which Python you're using:**
+```bash
+which python  # Should show path to venv/Scripts/python.exe
+python --version  # Should show Python 3.11.9
+```
 
 ### Model Not Learning (Low Accuracy)
 
@@ -498,7 +687,7 @@ Based on training with the default dataset:
 To verify that models and scalers are saved correctly:
 
 ```bash
-python verify_models.py
+../venv/Scripts/python.exe verify_models.py
 ```
 
 This script will:
@@ -508,6 +697,8 @@ This script will:
 - Test predictions with dummy data
 - Verify scalers work correctly
 - Show file sizes and directory contents
+
+**For detailed information**: See [`docs/verify_models.md`](docs/verify_models.md)
 
 ### Manual Verification
 
@@ -561,4 +752,25 @@ Adjust in training scripts:
 - Epochs: `epochs=100`
 - Dropout rates: `Dropout(0.3)`
 - Early stopping patience: `patience=15`
+
+## 📚 Additional Documentation
+
+For more detailed information, see the comprehensive documentation in the [`docs/`](docs/) directory:
+
+- **[Documentation Index](docs/README.md)** - Navigate all documentation
+- **[Training Guides](docs/)** - Detailed training documentation
+  - [LSTM Training](docs/train_lstm.md) - Complete LSTM training guide
+  - [Feature-Based Training](docs/train_features.md) - Feature extraction and training
+- **[Testing Guides](docs/)** - Model evaluation documentation
+  - [LSTM Testing](docs/test_lstm.md) - LSTM model evaluation
+  - [Feature-Based Testing](docs/test_features.md) - Feature-based model evaluation
+- **[Utility Guides](docs/)** - Validation and verification
+  - [Dataset Validation](docs/validate.md) - Data validation and visualization
+  - [Model Verification](docs/verify_models.md) - Model integrity checks
+- **[Visualizations Guide](docs/visualizations.md)** - Complete guide to all plots
+  - Training history plots
+  - Confusion matrices
+  - Probability distributions
+  - Sample visualizations
+  - Plot interpretation guidelines
 

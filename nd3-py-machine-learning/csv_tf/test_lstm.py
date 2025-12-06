@@ -18,6 +18,7 @@ np.random.seed(42)
 tf.random.set_seed(42)
 
 # Create output directory
+# Create output directory
 os.makedirs("output", exist_ok=True)
 
 # ==============================================================================
@@ -216,6 +217,7 @@ plt.ylabel('True Label', fontsize=12)
 plt.xlabel('Predicted Label', fontsize=12)
 plt.tight_layout()
 plt.savefig("output/lstm_test_confusion_matrix.png", dpi=150, bbox_inches='tight')
+plt.show()
 print("Confusion matrix saved to output/lstm_test_confusion_matrix.png")
 
 # Prediction probabilities distribution
@@ -236,6 +238,7 @@ for i, name in enumerate(condition_names):
 
 plt.tight_layout()
 plt.savefig("output/lstm_test_probability_distribution.png", dpi=150, bbox_inches='tight')
+plt.show()
 print("Probability distribution saved to output/lstm_test_probability_distribution.png")
 
 print("\n" + "="*60)
