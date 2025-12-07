@@ -98,16 +98,24 @@ python test_lstm.py
 
 ### Method 3: Helper Scripts
 
-Use the provided helper scripts (they automatically use the venv Python):
+Use the provided helper scripts from the `scripts/` directory (they automatically use the venv Python):
 
 ```bash
 # Git Bash / Linux
-./run_test_lstm.sh
-./run_test_features.sh
+./scripts/run_test_lstm.sh
+./scripts/run_test_features.sh
+./scripts/run_train_lstm.sh
+./scripts/run_train_features.sh
+./scripts/run_validate.sh
+./scripts/run_verify_models.sh
 
 # Windows CMD
-run_test_lstm.bat
-run_test_features.bat
+scripts\run_test_lstm.bat
+scripts\run_test_features.bat
+scripts\run_train_lstm.bat
+scripts\run_train_features.bat
+scripts\run_validate.bat
+scripts\run_verify_models.bat
 ```
 
 ### Troubleshooting: ModuleNotFoundError
@@ -149,9 +157,13 @@ python test_lstm.py
 
 ### Helper Scripts
 
-For convenience, helper scripts are provided:
-- `run_test_lstm.sh` / `run_test_lstm.bat` - Run LSTM testing
-- `run_test_features.sh` / `run_test_features.bat` - Run feature-based testing
+For convenience, helper scripts are provided in the `scripts/` directory:
+- `scripts/run_test_lstm.sh` / `scripts/run_test_lstm.bat` - Run LSTM testing
+- `scripts/run_test_features.sh` / `scripts/run_test_features.bat` - Run feature-based testing
+- `scripts/run_train_lstm.sh` / `scripts/run_train_lstm.bat` - Run LSTM training
+- `scripts/run_train_features.sh` / `scripts/run_train_features.bat` - Run feature-based training
+- `scripts/run_validate.sh` / `scripts/run_validate.bat` - Run dataset validation
+- `scripts/run_verify_models.sh` / `scripts/run_verify_models.bat` - Verify saved models
 
 **Note**: If you get `ModuleNotFoundError: No module named 'numpy'` or similar errors, you're using the system Python instead of the virtual environment's Python. Use `../venv/Scripts/python.exe` instead of `python`.
 
@@ -203,6 +215,13 @@ csv_tf/
 ├── test_lstm.py        # LSTM model testing
 ├── test_features.py    # Feature-based model testing
 ├── verify_models.py    # Verify saved models and scalers
+├── scripts/            # Helper scripts for running Python files
+│   ├── run_test_lstm.bat / .sh
+│   ├── run_test_features.bat / .sh
+│   ├── run_train_lstm.bat / .sh
+│   ├── run_train_features.bat / .sh
+│   ├── run_validate.bat / .sh
+│   └── run_verify_models.bat / .sh
 ├── models/             # Saved trained models and scalers
 └── output/             # Training plots and evaluation results
 ```
@@ -362,12 +381,12 @@ Evaluate trained models on the test dataset:
 **Or use helper scripts:**
 ```bash
 # Git Bash / Linux
-./run_test_lstm.sh
-./run_test_features.sh
+./scripts/run_test_lstm.sh
+./scripts/run_test_features.sh
 
 # Windows CMD
-run_test_lstm.bat
-run_test_features.bat
+scripts\run_test_lstm.bat
+scripts\run_test_features.bat
 ```
 
 Both test scripts will:

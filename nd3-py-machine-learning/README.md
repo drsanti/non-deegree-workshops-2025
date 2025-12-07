@@ -28,21 +28,23 @@ This tutorial teaches machine learning concepts through hands-on examples with s
 
 ### Prerequisites
 
-- **Python 3.11.9** (required for all chapters including TensorFlow support)
+- **Python 3.11.9** (required for TensorFlow compatibility)
+  - ⚠️ **Important**: TensorFlow requires Python 3.11.9. Even if you have Python 3.14.0 installed system-wide, you need Python 3.11.9 for this project.
   - Check your Python version: `python --version`
   - If you don't have Python 3.11.9, download from [python.org](https://www.python.org/downloads/release/python-3119/)
+  - You can have multiple Python versions installed - the venv will use 3.11.9 specifically
 - pip (Python package installer)
 
 ### Option 1: Using Virtual Environment (Recommended)
 
-1. **Create a virtual environment:**
+1. **Create a virtual environment with Python 3.11.9:**
    
-   **If Python 3.11.9 is in your PATH:**
+   **Option A: If Python 3.11.9 is in your PATH:**
    ```bash
    python -m venv venv
    ```
    
-   **If Python 3.11.9 is installed in `C:\Python311` (Windows):**
+   **Option B: If Python 3.11.9 is installed in `C:\Python311` (Windows):**
    ```bash
    # Windows Command Prompt/PowerShell
    C:\Python311\python.exe -m venv venv
@@ -51,11 +53,26 @@ This tutorial teaches machine learning concepts through hands-on examples with s
    /c/Python311/python.exe -m venv venv
    ```
    
-   **If using pyenv:**
+   **Option C: Using pyenv (Recommended if you have multiple Python versions):**
    ```bash
+   # Install Python 3.11.9 if not already installed
+   pyenv install 3.11.9
+   
    # Set Python 3.11.9 for this project
    pyenv local 3.11.9
+   
+   # Verify it's using 3.11.9
+   python --version  # Should show: Python 3.11.9
+   
+   # Create venv (will use 3.11.9)
    python -m venv venv
+   ```
+   
+   **Option D: If you have Python 3.14.0 in PATH but need 3.11.9:**
+   ```bash
+   # Download and install Python 3.11.9 to C:\Python311
+   # Then use the full path:
+   C:\Python311\python.exe -m venv venv
    ```
 
 2. **Activate the virtual environment:**
@@ -83,7 +100,7 @@ This tutorial teaches machine learning concepts through hands-on examples with s
 
 4. **Install dependencies:**
    ```bash
-   pip install --upgrade pip
+   C:\Python311\python.exe -m pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
@@ -212,6 +229,8 @@ If you're using Git Bash on Windows:
 
 **If `python --version` doesn't show Python 3.11.9:**
 
+⚠️ **Note**: Even if your system has Python 3.14.0, this project requires Python 3.11.9 for TensorFlow compatibility.
+
 1. **Check if Python 3.11.9 is installed:**
    ```bash
    # Windows
@@ -221,9 +240,10 @@ If you're using Git Bash on Windows:
    ```
 
 2. **If not installed, download and install:**
-   - Download from [python.org](https://www.python.org/downloads/release/python-3119/)
-   - During installation, check "Add Python to PATH"
-   - Or install to `C:\Python311` and use the full path
+   - Download Python 3.11.9 from [python.org](https://www.python.org/downloads/release/python-3119/)
+   - During installation, you can:
+     - Check "Add Python to PATH" (if you want it as default)
+     - Or install to `C:\Python311` and use the full path (recommended if you have multiple Python versions)
 
 3. **Create venv using full path:**
    ```bash
@@ -236,7 +256,7 @@ If you're using Git Bash on Windows:
 
 ### Using pyenv with Python 3.11.9
 
-If you're using pyenv:
+If you're using pyenv (recommended for managing multiple Python versions):
 
 1. **Install Python 3.11.9:**
    ```bash
@@ -253,6 +273,12 @@ If you're using pyenv:
    ```bash
    python --version
    # Should show: Python 3.11.9
+   ```
+   
+4. **Create venv (will automatically use 3.11.9):**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # or venv\Scripts\activate on Windows
    ```
 
 4. **Create venv:**
@@ -272,7 +298,7 @@ If you get import errors, make sure:
 ### TensorFlow Installation Issues
 
 **If TensorFlow installation fails:**
-1. Verify Python version is 3.11.9: `python --version`
+1. Verify Python version is 3.11.9: `python --version` (TensorFlow requires 3.11.9)
 2. Upgrade pip: `pip install --upgrade pip`
 3. Try: `pip install tensorflow --upgrade`
 4. For Apple Silicon (M1/M2): Use `tensorflow-macos`
