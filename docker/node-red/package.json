@@ -1,0 +1,10 @@
+{
+  "name": "node-red-iot-workshop",
+  "version": "1.0.0",
+  "description": "Node-RED with FlowFuse Dashboard for IoT workshops",
+  "dependencies": {
+    "@flowfuse/node-red-dashboard": "^1.29.0",
+    "node-red-contrib-influxdb": "^0.5.0"
+  }
+}
+

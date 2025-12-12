@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "title": "Sensor Data Dashboard",
+    "tags": ["sensors", "data"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "All Sensor Readings",
+        "type": "timeseries",
+        "gridPos": {"h": 10, "w": 24, "x": 0, "y": 0},
+        "targets": [
+          {
+            "query": "from(bucket: \"iot-data\") |> range(start: -1h) |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_data\")",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}
+

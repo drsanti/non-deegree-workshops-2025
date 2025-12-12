@@ -1,0 +1,18 @@
+# IoT Home Automation Learning Platform - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# MQTT Client
+paho-mqtt==1.6.1
+
+# InfluxDB Client
+influxdb-client==1.38.0
+
+# HTTP Client
+requests==2.31.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Optional: Grafana API client (can also use requests)
+# grafana-api==1.0.3
+

@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "title": "Home Automation Dashboard",
+    "tags": ["home", "automation"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Device Status",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "targets": [
+          {
+            "query": "from(bucket: \"iot-data\") |> range(start: -5m) |> filter(fn: (r) => r[\"_measurement\"] == \"device_status\") |> last()",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Automation Events",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 4},
+        "targets": [
+          {
+            "query": "from(bucket: \"iot-data\") |> range(start: -1h) |> filter(fn: (r) => r[\"_measurement\"] == \"automation_events\")",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}
+

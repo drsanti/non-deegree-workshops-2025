@@ -1,486 +1,276 @@
-# IoT Device Management - Full Stack Learning Project
+# IoT Home Automation Learning Platform
 
-A comprehensive full-stack TypeScript learning project demonstrating IoT device management with real-time communication, REST APIs, and database persistence. This project includes **20 progressive workshops** covering WebSocket clients, REST APIs, MongoDB, Prisma ORM, and React development.
+A comprehensive Docker-based IoT and Home Automation learning environment for teaching Python programming with real-world IoT services.
 
 ## Overview
 
-This repository contains two main projects that work together with a Docker-based WebSocket Server to create a complete IoT device management system:
+This platform provides a complete IoT ecosystem including:
+- **Node-RED** with FlowFuse Dashboard for visual flow programming
+- **InfluxDB** for time-series data storage
+- **EMQX** MQTT broker for IoT messaging
+- **Flask** REST API for Python interactions
+- **Grafana** for data visualization
+- **Nginx** as reverse proxy
+- **IoT Simulator** for generating test data
 
-1. **WebSocket Client** (`websocket/ws-client`) - React application with 10 workshops for WebSocket client development
-2. **REST API Server** (`iot-device-api/server`) - RESTful API with MongoDB persistence and 10 workshops for backend development
-3. **WebSocket Server** (Docker Image) - Real-time IoT device simulation server available as a Docker image from Docker Hub
+## Features
 
-**Note:** The WebSocket Server source code is maintained in a separate private repository. The server is available as a pre-built Docker image (`drsanti/ternion-realtime-iot-server:latest`) from Docker Hub for easy deployment.
-
-## Projects
-
-### 1. WebSocket Server (Docker Image)
-
-The WebSocket Server is **not included in this repository** but is available as a Docker image from Docker Hub. It simulates IoT devices and enables real-time bidirectional communication.
-
-**Docker Image:**
-- **Image Name**: `drsanti/ternion-realtime-iot-server:latest`
-- **Docker Hub**: https://hub.docker.com/r/drsanti/ternion-realtime-iot-server
-- **Source Code**: Available in a separate private repository
-
-**Features:**
-- WebSocket server for real-time communication
-- Simulates multiple IoT devices (temperature sensors, humidity monitors, controllers)
-- Broadcasts sensor data updates to all connected clients
-- Handles device control commands
-- TypeScript with type-safe message handling
-- Pre-built Docker image for easy deployment
-
-**Usage:**
-The server is deployed using Docker. See the [Docker Deployment](#docker-deployment) section for instructions.
-
-**Tech Stack:**
-- Node.js, TypeScript
-- `ws` WebSocket library
-- Docker containerization
-
-### 2. WebSocket Client (`websocket/ws-client`)
-
-A React application with **10 progressive workshops** teaching WebSocket client development from basics to production-ready patterns.
-
-**Features:**
-- 10 interactive workshop examples
-- Real-time sensor data visualization
-- Device status monitoring and control
-- Automatic reconnection with exponential backoff
-- Modern UI with Radix UI components
-- Type-safe TypeScript implementation
-
-**Workshops:**
-1. Basic WebSocket Connection
-2. Basic Messaging
-3. Device List Handling
-4. Real-time Sensor Data
-5. Device Control
-6. Connection Management
-7. Error Handling
-8. Custom Hooks
-9. Advanced Features
-10. Best Practices
-
-**Tech Stack:**
-- React 18, TypeScript
-- Vite build tool
-- Radix UI components
-- WebSocket API
-
-### 3. REST API Server (`iot-device-api/server`)
-
-A RESTful API server with **10 progressive workshops** teaching backend development with MongoDB, Prisma ORM, and Fastify.
-
-**Features:**
-- RESTful API built with Fastify
-- MongoDB database with Prisma ORM
-- Device CRUD operations
-- Device sensor data history tracking
-- TypeScript for type safety
-- Docker Compose for MongoDB setup
-
-**Workshops:**
-1. Setup Environment
-2. Project Architecture
-3. MongoDB & Prisma
-4. Fastify REST API
-5. TypeScript Backend
-6. Device CRUD
-7. Data History Queries
-8. Error Handling & Validation
-9. WebSocket Integration
-10. Advanced Topics
-
-**Tech Stack:**
-- Node.js, TypeScript
-- Fastify web framework
-- Prisma ORM
-- MongoDB database
-- Docker Compose
-
-## Project Structure
-
-```
-.
-├── websocket/
-│   └── ws-client/               # React WebSocket Client
-│       ├── src/
-│       │   ├── App.tsx         # Main application
-│       │   ├── Example.tsx     # Workshop example selector
-│       │   ├── examples/       # 10 workshop examples
-│       │   └── components/
-│       ├── workshops/          # 10 workshop markdown files
-│       └── README.md
-│
-└── iot-device-api/
-    └── server/                  # REST API Server
-        ├── src/
-        │   ├── index.ts        # Main server entry
-        │   ├── routes/         # API routes
-        │   ├── services/       # Business logic
-        │   └── prisma/         # Prisma client
-        ├── prisma/
-        │   └── schema.prisma   # Database schema
-        ├── workshops/          # 10 workshop markdown files
-        ├── examples/           # Code examples
-        └── README.md
-```
-
-**Note:** The WebSocket Server is not included in this repository. It is available as a Docker image (`drsanti/ternion-realtime-iot-server:latest`) from Docker Hub.
+- 🐳 Complete Docker Compose setup
+- 📚 10 Progressive Workshops with documentation and code
+- 🐍 Python examples for all services
+- 📊 Pre-configured Grafana dashboards
+- 🎨 FlowFuse Dashboard integration
+- 🔧 Easy setup scripts for Python environment
 
 ## Quick Start
 
 ### Prerequisites
 
-- Node.js 18+ and npm
-- Docker and Docker Compose (for WebSocket Server and MongoDB)
-- Modern web browser with WebSocket support
+- Docker and Docker Compose installed
+- Python 3.8 or higher
+- Git (optional)
 
-### Installation
+### 1. Start Docker Services
 
-1. **Install WebSocket Client dependencies:**
-   ```bash
-   cd websocket/ws-client
-   npm install
-   ```
+```bash
+cd docker
+docker-compose up -d
+```
 
-2. **Set up MongoDB for REST API Server:**
-   ```bash
-   cd iot-device-api/server
-   docker-compose up -d
-   ```
-   This starts MongoDB in a Docker container. Wait a few seconds for MongoDB to initialize.
+This will start all services:
+- InfluxDB: http://localhost:8086
+- EMQX: http://localhost:1883 (MQTT), http://localhost:18083 (Dashboard)
+- Node-RED: http://localhost:1880
+- Flask API: http://localhost:5000
+- Grafana: http://localhost:3000 (admin/admin)
+- Nginx: http://localhost:8888 (routes to all services)
 
-3. **Initialize MongoDB Replica Set:**
-   ```bash
-   docker exec mongodb mongosh -u non-degree -p 'non-degree-#2025' --authenticationDatabase admin --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})" --quiet
-   ```
-   Prisma requires MongoDB to run as a replica set (even for single-node setups).
+### 2. Setup Python Environment
 
-4. **Install REST API Server dependencies:**
-   ```bash
-   cd iot-device-api/server
-   npm install
-   npm run prisma:generate
-   ```
-   **Note:** MongoDB must be running and replica set initialized before running `prisma:generate`.
+**Windows:**
+```bash
+setup_python_env.bat
+```
 
-4. **WebSocket Server:**
-   The WebSocket Server is available as a Docker image. No local installation needed. See [Docker Deployment](#docker-deployment) section.
+**Linux/Mac:**
+```bash
+chmod +x setup_python_env.sh
+./setup_python_env.sh
+```
 
-### Running the Projects
+Or manually:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-#### Option 1: WebSocket Real-Time Demo
+### 3. Configure Environment Variables
 
-1. **Start the WebSocket Server using Docker Compose:**
-   ```bash
-   cd websocket/ws-server-docker
-   # Create .env file (see websocket/ws-server-docker/README.md)
-   docker-compose up -d
-   ```
-   Server runs on `ws://localhost:7890`
-   
-   **Or use Docker directly:**
-   ```bash
-   docker run -d \
-     --name ternion-realtime-iot-server \
-     -p 7890:7890 \
-     -e DEVICES='[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]' \
-     drsanti/ternion-realtime-iot-server:latest
-   ```
-   
-   For detailed Docker Compose setup instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
+Copy `.env.example` to `.env` and update with your configuration:
+```bash
+cp .env.example .env
+```
 
-2. **Start the WebSocket Client:**
-   ```bash
-   cd websocket/ws-client
-   npm run dev
-   ```
-   Client opens at `http://localhost:5173`
+### 4. Verify Setup
 
-3. **Open your browser** and navigate to `http://localhost:5173`
-   - Use the example selector to explore the 10 workshops
-   - Each example demonstrates different WebSocket concepts
-
-#### Option 2: REST API with Database
-
-1. **Start MongoDB with Docker Compose:**
-   ```bash
-   cd iot-device-api/server
-   docker-compose up -d
-   ```
-
-2. **Initialize MongoDB Replica Set:**
-   ```bash
-   docker exec mongodb mongosh -u non-degree -p 'non-degree-#2025' --authenticationDatabase admin --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})" --quiet
-   ```
-
-3. **Push Prisma Schema:**
-   ```bash
-   cd iot-device-api/server
-   npm run prisma:push
-   ```
-
-4. **Start the REST API Server:**
-   ```bash
-   npm run dev
-   ```
-   Server runs on `http://localhost:3000`
-
-5. **Explore the workshops** in `iot-device-api/server/workshops/`
-
-## Learning Path
-
-### WebSocket Client Development (10 Workshops)
-
-**Beginner (Workshops 1-3):**
-- Basic WebSocket connections
-- Sending and receiving messages
-- Managing device state
-
-**Intermediate (Workshops 4-6):**
-- Real-time data updates
-- Device control interfaces
-- Connection lifecycle management
-
-**Advanced (Workshops 7-10):**
-- Error handling and validation
-- Custom React hooks
-- Advanced features (queuing, optimistic updates)
-- Production-ready practices
-
-### Backend API Development (10 Workshops)
-
-**Beginner (Workshops 1-3):**
-- Environment setup
-- Project architecture
-- MongoDB and Prisma basics
-
-**Intermediate (Workshops 4-6):**
-- Fastify REST API development
-- TypeScript backend patterns
-- CRUD operations
-
-**Advanced (Workshops 7-10):**
-- Data history queries
-- Error handling and validation
-- WebSocket integration
-- Advanced topics and optimization
-
-## Tech Stack Summary
-
-### Frontend
-- **React 18** - UI framework
-- **TypeScript** - Type safety
-- **Vite** - Build tool
-- **Radix UI** - Component library
-- **WebSocket API** - Real-time communication
-
-### Backend
-- **Node.js** - Runtime
-- **TypeScript** - Type safety
-- **Fastify** - Web framework
-- **Prisma** - ORM
-- **MongoDB** - Database
-- **ws** - WebSocket library
-
-### DevOps
-- **Docker** - Containerization
-- **Docker Compose** - Multi-container orchestration
-
-## Key Features
-
-### Real-Time Communication
-- WebSocket bidirectional communication
-- Automatic reconnection with exponential backoff
-- Real-time sensor data updates
-- Device control commands
-
-### Data Persistence
-- MongoDB database for device storage
-- Prisma ORM for type-safe database access
-- Device data history tracking
-- RESTful API endpoints
-
-### Developer Experience
-- **20 Progressive Workshops** - Comprehensive learning materials
-- **TypeScript** - Full type safety across all projects
-- **Interactive Examples** - Working code examples for each concept
-- **Docker Support** - Easy deployment and setup
-- **Modern Tooling** - Vite, Fastify, Prisma
+```bash
+python workshop/code/workshop-01/test_environment.py
+```
 
 ## Documentation
 
-Each project includes detailed documentation:
+This project includes comprehensive documentation organized into several categories:
 
-- **WebSocket Server**: 
-  - Docker image: https://hub.docker.com/r/drsanti/ternion-realtime-iot-server
-  - Docker Compose setup: `websocket/ws-server-docker/README.md`
-  - Source code in separate private repository
-- **WebSocket Client**: `websocket/ws-client/README.md`
-- **REST API Server**: `iot-device-api/server/README.md`
+### Workshop Documentation
 
-## Development Commands
+Progressive learning modules with step-by-step instructions and Python code examples:
 
-### WebSocket Server (Docker)
+- **[Workshop 01: Introduction](workshop/docs/workshop-01-introduction.md)** - Python environment setup, Docker services overview, and your first Python script
+- **[Workshop 02: MQTT Basics](workshop/docs/workshop-02-mqtt-basics.md)** - Publishing and subscribing to MQTT topics, protocol fundamentals, and Python MQTT client
+- **[Workshop 03: Database Operations](workshop/docs/workshop-03-database-operations.md)** - InfluxDB write operations, Flux query language, and data visualization in Grafana
+- **[Workshop 04: REST API](workshop/docs/workshop-04-rest-api.md)** - Flask API integration, HTTP requests with Python, and API endpoints
+- **[Workshop 05: Node-RED Integration](workshop/docs/workshop-05-node-red-integration.md)** - Flow-based programming, FlowFuse Dashboard basics, and Python ↔ Node-RED communication
+- **[Workshop 06: Data Visualization](workshop/docs/workshop-06-data-visualization.md)** - Grafana dashboards, advanced Flux queries, and FlowFuse Dashboard features
+- **[Workshop 07: IoT Simulator](workshop/docs/workshop-07-iot-simulator.md)** - Device simulation, real-time data generation, and visualization
+- **[Workshop 08: Home Automation](workshop/docs/workshop-08-home-automation.md)** - Automation rules, sensor-actuator integration, and monitoring dashboards
+- **[Workshop 09: Advanced Topics](workshop/docs/workshop-09-advanced-topics.md)** - Security best practices, performance optimization, and scaling techniques
+- **[Workshop 10: Capstone Project](workshop/docs/workshop-10-capstone-project.md)** - Complete system implementation, integration of all concepts, and project presentation
 
-The WebSocket Server runs as a Docker container. Use Docker Compose (recommended):
+### Architecture Documentation
+
+Comprehensive system architecture documentation with diagrams and detailed explanations:
+
+- **[Architecture Index](workshop/docs/Architecture/architecture-index.md)** - Navigation guide and overview of all architecture documentation
+- **[Architecture Overview](workshop/docs/Architecture/architecture-overview.md)** - High-level system architecture, component relationships, and network topology
+- **[Data Flow](workshop/docs/Architecture/data-flow.md)** - How data moves through the system from sensors to visualization
+- **[Component Details](workshop/docs/Architecture/component-details.md)** - Detailed documentation of each Docker service and Python component
+
+### Docker Documentation
+
+Step-by-step Docker teaching documentation covering fundamentals to advanced topics:
+
+- **[Chapter 1: Docker Fundamentals](docker/docs/01-docker-fundamentals.md)** - What is Docker, core concepts, installation, and basic commands
+- **[Chapter 2: Project Architecture and Design](docker/docs/02-project-architecture.md)** - Why Docker for this project, system architecture, and design decisions
+- **[Chapter 3: Dockerfile Deep Dive](docker/docs/03-dockerfile-implementation.md)** - Dockerfile syntax, best practices, and line-by-line analysis of project Dockerfiles
+- **[Chapter 4: Docker Compose Configuration](docker/docs/04-docker-compose-setup.md)** - Docker Compose fundamentals, service configuration, and complete walkthrough
+- **[Chapter 5: Building and Running](docker/docs/05-building-and-running.md)** - Building images, running containers, debugging techniques, and management
+- **[Chapter 6: Publishing to GitHub Container Registry](docker/docs/06-publishing-ghcr.md)** - Setting up GHCR, authenticating, tagging, and pushing images
+- **[Chapter 7: Publishing to Docker Hub](docker/docs/07-publishing-dockerhub.md)** - Docker Hub setup, authentication, automated builds, and publishing workflow
+- **[Chapter 8: Advanced Topics](docker/docs/08-advanced-topics.md)** - Multi-stage builds, security hardening, image optimization, and resource limits
+- **[Chapter 9: Troubleshooting and Best Practices](docker/docs/09-troubleshooting.md)** - Common issues, debugging strategies, log analysis, and maintenance tasks
+
+### Additional Documentation
+
+- **[Node-RED Flows README](workshop/flows/README.md)** - Documentation for Node-RED flows, including how to display MQTT data in FlowFuse Dashboard charts and gauges
+
+## Project Structure
+
+```
+non-deegree-workshops-2025/
+├── docker/                 # Docker Compose configuration
+│   ├── docker-compose.yml
+│   ├── docs/               # Docker teaching documentation
+│   ├── nginx/
+│   ├── node-red/
+│   └── grafana/
+├── api/                    # Flask API service
+│   ├── app.py
+│   └── routes/
+├── simulator/              # IoT device simulator
+│   └── devices/
+├── workshop/
+│   ├── docs/               # Workshop documentation
+│   │   └── Architecture/  # System architecture docs
+│   ├── code/               # Python code examples
+│   └── flows/              # Node-RED flows documentation
+├── requirements.txt        # Python dependencies
+├── setup_python_env.sh     # Setup script (Linux/Mac)
+├── setup_python_env.bat    # Setup script (Windows)
+└── README.md
+```
+
+## Service Access
+
+| Service | URL | Credentials |
+|---------|-----|------------|
+| Node-RED | http://localhost:1880 | - |
+| Grafana | http://localhost:3000 | admin/admin |
+| EMQX Dashboard | http://localhost:18083 | admin/public |
+| Flask API | http://localhost:5000 | - |
+| Nginx | http://localhost:8888 | - |
+
+## API Endpoints
+
+- `GET /` - API information
+- `GET /health` - Health check
+- `POST /mqtt/publish` - Publish MQTT message
+- `POST /mqtt/subscribe` - Subscribe to MQTT topic
+- `POST /database/write` - Write to InfluxDB
+- `POST /database/query` - Query InfluxDB
+- `GET /devices/list` - List devices
+- `POST /devices/register` - Register device
+
+## Usage Examples
+
+### Run a Workshop Example
 
 ```bash
-# Navigate to docker directory
-cd websocket/ws-server-docker
+# Activate virtual environment first
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Create .env file with DEVICES configuration (see README.md)
-# Then start the server
-docker-compose up -d
+# Run example code
+python workshop/code/workshop-02/mqtt_publisher.py
+```
+
+### Start IoT Simulator
+
+```bash
+cd simulator
+python iot_simulator.py
+```
+
+### Access Services
+
+- View Node-RED flows: http://localhost:1880
+- View Grafana dashboards: http://localhost:3000
+- Check API: http://localhost:5000
+
+## Troubleshooting
+
+### Docker Services Not Starting
+
+```bash
+# Check service status
+docker-compose ps
 
 # View logs
-docker-compose logs -f
+docker-compose logs [service-name]
 
-# Stop the server
-docker-compose down
+# Restart services
+docker-compose restart
 ```
 
-**Or use Docker directly:**
-```bash
-# Pull the latest image
-docker pull drsanti/ternion-realtime-iot-server:latest
-
-# Run the server
-docker run -d \
-  --name ternion-realtime-iot-server \
-  -p 7890:7890 \
-  -e DEVICES='[{"id":"device-001","name":"Temperature Sensor","type":"sensor"}]' \
-  drsanti/ternion-realtime-iot-server:latest
-
-# View logs
-docker logs -f ternion-realtime-iot-server
-
-# Stop the server
-docker stop ternion-realtime-iot-server
-
-# Remove the container
-docker rm ternion-realtime-iot-server
-```
-
-For detailed setup instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
-
-### WebSocket Client
-```bash
-cd websocket/ws-client
-npm run dev      # Development server
-npm run build    # Production build
-npm run type-check
-```
-
-### REST API Server
-```bash
-cd iot-device-api/server
-npm run dev      # Development with watch
-npm start        # Production
-npm run prisma:generate  # Generate Prisma client
-npm run prisma:push      # Push schema to database
-npm run prisma:studio    # Open Prisma Studio
-```
-
-## Docker Deployment
-
-### WebSocket Server
-
-The WebSocket Server is available as a pre-built Docker image from Docker Hub.
-
-**Option 1: Using Docker directly**
+### Python Environment Issues
 
 ```bash
-docker run -d \
-  --name ternion-realtime-iot-server \
-  -p 7890:7890 \
-  -e DEVICES='[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]' \
-  -e PORT=7890 \
-  -e TEMPERATURE_BASE=20 \
-  -e TEMPERATURE_RANGE=10 \
-  -e HUMIDITY_BASE=40 \
-  -e HUMIDITY_RANGE=30 \
-  -e SIMULATION_INTERVAL=3000 \
-  drsanti/ternion-realtime-iot-server:latest
+# Verify Python version
+python --version  # Should be 3.8+
+
+# Reinstall dependencies
+pip install -r requirements.txt --force-reinstall
 ```
 
-**Option 2: Using Docker Compose (Recommended)**
+### Connection Issues
 
-Use the Docker Compose setup included in this repository:
+- Verify all services are running: `docker-compose ps`
+- Check ports are not in use
+- Review service logs for errors
+- Ensure firewall allows connections
 
-1. **Navigate to the docker directory:**
-   ```bash
-   cd websocket/ws-server-docker
-   ```
+## Development
 
-2. **Create a `.env` file** (see `websocket/ws-server-docker/README.md` for details):
-   ```env
-   PORT=7890
-   DEVICES=[{"id":"device-001","name":"Temperature Sensor","type":"sensor"},{"id":"device-002","name":"Humidity Monitor","type":"sensor"},{"id":"device-003","name":"Smart Thermostat","type":"controller"}]
-   TEMPERATURE_BASE=20
-   TEMPERATURE_RANGE=10
-   HUMIDITY_BASE=40
-   HUMIDITY_RANGE=30
-   SIMULATION_INTERVAL=3000
-   ```
+### Adding New Workshops
 
-3. **Start the server:**
-   ```bash
-   docker-compose up -d
-   ```
+1. Create documentation in `workshop/docs/`
+2. Add code examples in `workshop/code/`
+3. Update this README
 
-For detailed instructions, see [`websocket/ws-server-docker/README.md`](websocket/ws-server-docker/README.md).
+### Modifying Services
 
-**Docker Hub:**
-- **Image**: `drsanti/ternion-realtime-iot-server:latest`
-- **URL**: https://hub.docker.com/r/drsanti/ternion-realtime-iot-server
-
-**Environment Variables:**
-- `PORT` (default: `7890`) - WebSocket server port
-- `DEVICES` (required) - JSON array of device configurations
-- `TEMPERATURE_BASE` (default: `20`) - Base temperature for simulation
-- `TEMPERATURE_RANGE` (default: `10`) - Temperature variation range
-- `HUMIDITY_BASE` (default: `40`) - Base humidity for simulation
-- `HUMIDITY_RANGE` (default: `30`) - Humidity variation range
-- `SIMULATION_INTERVAL` (default: `3000`) - Interval in milliseconds for sensor updates
-- `INITIAL_DEVICE_STATUS` (default: `online`) - Initial status of devices
-- `INITIAL_POWER_STATUS` (default: `on`) - Initial power status
-
-### REST API Server (MongoDB)
-```bash
-cd iot-device-api/server
-docker-compose up -d
-```
-
-## TypeScript
-
-All projects are fully written in TypeScript with:
-- **Strict type checking** enabled
-- **Shared type definitions** where applicable
-- **Type-safe** APIs and components
-- **IntelliSense** support
-
-## Browser Support
-
-Modern browsers with WebSocket and ES6+ support:
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-
-## License
-
-ISC
+- Docker services: Edit `docker/docker-compose.yml`
+- Flask API: Edit files in `api/`
+- Simulator: Edit files in `simulator/`
 
 ## Contributing
 
-This is a comprehensive learning project. Feel free to use it as a starting point for your own IoT applications or to learn full-stack TypeScript development.
+Contributions are welcome! Please:
+1. Follow the existing code style
+2. Add documentation for new features
+3. Test your changes thoroughly
 
-## Next Steps
+## License
 
-1. **Start with WebSocket Client Workshops** - Learn real-time communication
-2. **Explore REST API Workshops** - Learn backend development
-3. **Combine Both** - Integrate WebSocket and REST API for a complete solution
-4. **Build Your Own** - Use these patterns in your projects
+This project is for educational purposes.
+
+## Support
+
+For issues and questions:
+- Check [Workshop Documentation](#workshop-documentation) for step-by-step guides
+- Review [Docker Documentation](#docker-documentation) for Docker-related questions
+- Consult [Architecture Documentation](#architecture-documentation) for system understanding
+- Review service logs: `docker-compose logs [service-name]`
+- Consult official Docker and service documentation
+
+## Acknowledgments
+
+- Node-RED and FlowFuse Dashboard
+- InfluxDB
+- EMQX
+- Grafana
+- Flask
+
+---
+
+**Happy Learning! 🚀**
+

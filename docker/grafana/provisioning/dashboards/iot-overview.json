@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "title": "IoT Overview Dashboard",
+    "tags": ["iot", "overview"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Temperature Sensors",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "query": "from(bucket: \"iot-data\") |> range(start: -1h) |> filter(fn: (r) => r[\"_measurement\"] == \"temperature\")",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Humidity Sensors",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "query": "from(bucket: \"iot-data\") |> range(start: -1h) |> filter(fn: (r) => r[\"_measurement\"] == \"humidity\")",
+            "refId": "A"
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 1
+  }
+}
+
