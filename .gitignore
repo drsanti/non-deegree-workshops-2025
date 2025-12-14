@@ -1,3 +1,5 @@
+# Ignore large Docker image tarball
+robot/robot-app.tar
 # Python
 __pycache__/
 *.py[cod]
