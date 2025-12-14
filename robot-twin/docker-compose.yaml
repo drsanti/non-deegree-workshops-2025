@@ -1,0 +1,19 @@
+#
+# Docker Compose file for Robot Twin Application
+# 
+# Download:
+#   https://drive.google.com/file/d/1GBHg0M3iuxuRpX5MORB-8Q2sBWCBoyCs/view?usp=sharing
+# Run:
+#   docker load -i robot-app.tar
+# Run Container:
+#   - docker run -d --name robot-twin -p 9500:9500 robot-app
+#     OR
+#   - docker-compose up -d
+
+services:
+  robot-app:
+    image: robot-app
+    container_name: robot-twin
+    ports:
+      - "9500:9500"
+    restart: unless-stopped

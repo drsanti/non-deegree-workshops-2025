@@ -74,3 +74,5 @@ node-red-data/
 grafana-data/
 influxdb-data/
 
+*.tar
+
